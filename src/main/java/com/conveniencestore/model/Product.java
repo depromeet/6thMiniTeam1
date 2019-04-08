@@ -1,5 +1,9 @@
 package com.conveniencestore.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,7 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+@Setter
+@Getter
 @Entity
+@ToString
 @Table(name = "product")
 public class Product implements Serializable{
 
@@ -21,64 +29,18 @@ public class Product implements Serializable{
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "storename")
+	private String storeName;
+
 	@Column(name = "price")
-	private String price;
+	private int price;
 
 	@Column(name = "event")
-	private int event;
+	private String event;
 
 	@Column(name = "imageurl")
 	private String imageUrl;
 
 	@Column(name = "createtime")
 	private Date createTime;
-
-	public Long getSeq() {
-		return seq;
-	}
-
-	public void setSeq(Long seq) {
-		this.seq = seq;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
-	public int getEvent() {
-		return event;
-	}
-
-	public void setEvent(int event) {
-		this.event = event;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
 }
