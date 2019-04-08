@@ -18,13 +18,14 @@ public class ProductController {
 
 	@GetMapping("/products")
 	public List<Product> getProducts(@RequestParam(value="page", required=false) Integer page, @RequestParam(value="count", required=false) Integer count) {
-		List<Product> products = productDao.findAll();
 		if (page == null) page = 1;
 		if (count == null) count = 30;
 
-		System.out.println(page);
-		System.out.println(count);
+		List<Product> products = productDao.findAll();
 
-		return products;
+		int baseIndex = (page - 1) * count;
+		if (baseIndex >= products.size()) return null;
+		int lastIndex = Math.min(baseIndex + count - 1, products.size() - 1);
+		return products.subList(baseIndex, lastIndex);
 	}
 }
