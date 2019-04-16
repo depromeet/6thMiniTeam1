@@ -22,6 +22,15 @@ import javax.persistence.Table;
 @Table(name = "product")
 public class Product implements Serializable{
 
+	public Product(String name, String storeName, String price, String event, String imageUrl, Date createTime) {
+		this.name = name;
+		this.storeName = storeName;
+		this.price = price;
+		this.event = event;
+		this.imageUrl = imageUrl;
+		this.createTime = createTime;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seq;
@@ -33,7 +42,7 @@ public class Product implements Serializable{
 	private String storeName;
 
 	@Column(name = "price")
-	private int price;
+	private String price;
 
 	@Column(name = "event")
 	private String event;
