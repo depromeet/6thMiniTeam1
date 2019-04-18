@@ -23,14 +23,14 @@ import javax.persistence.Table;
 @Table(name = "product")
 public class Product implements Serializable{
 
-	public Product(String name, String storeName, String price, String event, String imageUrl, Date createTime) {
+/*	public Product(String name, String storeName, String price, String event, String imageUrl, Date createTime) {
 		this.name = name;
 		this.storeName = storeName;
 		this.price = price;
 		this.event = event;
 		this.imageUrl = imageUrl;
 		this.createTime = createTime;
-	}
+	}*/
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,7 @@ public class Product implements Serializable{
 	private String storeName;
 
 	@Column(name = "price")
-	private String price;
+	private int price;
 
 	@Column(name = "category")
 	private String category;
@@ -56,4 +56,6 @@ public class Product implements Serializable{
 
 	@Column(name = "createtime")
 	private LocalDate createTime;
+
+	private String searchProduct;
 }

@@ -10,12 +10,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.conveniencestore.dao.ProductDao;
 import com.conveniencestore.model.Product;
-
 @RestController
 public class ProductController {
 
@@ -33,6 +33,17 @@ public class ProductController {
         if (baseIndex >= products.size()) return null;
         int lastIndex = Math.min(baseIndex + count - 1, products.size() - 1);
         return products.subList(baseIndex, lastIndex);
+    }
+
+    @GetMapping("/search/{name}")
+    private List<Product> searchProductName(@PathVariable String name){
+    	System.out.println(name);
+        List<Product> searchProducts = productDao.findByNameContaining(name);
+        for (int i = 0; i < searchProducts.size(); i++) {
+        	System.out.println(searchProducts.get(i).getName());
+        	searchProducts.get(i).setSearchProduct(searchProducts.get(i).getName());
+		}
+        return searchProducts;
     }
 
     private int[] getPageSize() {
