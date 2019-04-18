@@ -7,10 +7,13 @@ spring:
 spring:
   profiles: dev
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: create
 
+logging:
+  level:
+    org.hibernate: ERROR
 
 server:
   port: 8080

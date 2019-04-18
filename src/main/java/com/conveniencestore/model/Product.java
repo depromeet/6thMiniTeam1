@@ -1,11 +1,9 @@
 package com.conveniencestore.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +17,9 @@ import javax.persistence.Table;
 @Getter
 @Entity
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "product")
 public class Product implements Serializable{
 
@@ -44,6 +45,9 @@ public class Product implements Serializable{
 	@Column(name = "price")
 	private String price;
 
+	@Column(name = "category")
+	private String category;
+
 	@Column(name = "event")
 	private String event;
 
@@ -51,5 +55,5 @@ public class Product implements Serializable{
 	private String imageUrl;
 
 	@Column(name = "createtime")
-	private Date createTime;
+	private LocalDate createTime;
 }
