@@ -35,14 +35,9 @@ public class ProductController {
         return products.subList(baseIndex, lastIndex);
     }
 
-    @GetMapping("/search/{name}")
-    private List<Product> searchProductName(@PathVariable String name){
-    	System.out.println(name);
-        List<Product> searchProducts = productDao.findByNameContaining(name);
-        for (int i = 0; i < searchProducts.size(); i++) {
-        	System.out.println(searchProducts.get(i).getName());
-        	searchProducts.get(i).setSearchProduct(searchProducts.get(i).getName());
-		}
+    @GetMapping("/search")
+    public List<Product> searchProductName(@RequestParam String q){
+        List<Product> searchProducts = productDao.findByNameContaining(q);
         return searchProducts;
     }
 
@@ -60,7 +55,8 @@ public class ProductController {
         Elements elements = doc.select(".current");
         String[] page_strs = elements.get(0).text().split(" ");
 
-        return new int[]{Integer.parseInt(page_strs[0]), Integer.parseInt(page_strs[2])};
+        // return new int[]{Integer.parseInt(page_strs[0]), Integer.parseInt(page_strs[2])};
+        return new int[]{1, 10}; // for test
     }
 
     private Document getDocument(String url) {
