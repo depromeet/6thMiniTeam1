@@ -1,5 +1,6 @@
 package com.conveniencestore.crontab;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class Gs25ProductThread implements Runnable{
 						//System.out.println("title2"+j+":::"+title.get(j).getText());
 						//System.out.println("cost2"+j+":::"+cost.get(j).getText());
 						//System.out.println("img2"+j+":::"+img.get(j).getAttribute("src"));
-						productDao.save(new Product(title.get(j).getText(), "Gs25", cost.get(j).getText(), "1+1", img.get(j).getAttribute("src"), new Date()));
+//						productDao.save(new Product(title.get(j).getText(), "Gs25", cost.get(j).getText(), "1+1", img.get(j).getAttribute("src"), LocalDate.now()));
 					}
 					JavascriptExecutor js = (JavascriptExecutor) driver;
 					js.executeScript("goodsPageController.movePage("+(i)+")");
