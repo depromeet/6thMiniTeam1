@@ -23,11 +23,16 @@ public class ProductController {
     private ProductDao productDao;
 
     @GetMapping("/products")
-    public List<Product> getProducts(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "count", required = false) Integer count) {
+    public List<Product> getProducts(
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "count", required = false) Integer count,
+            @RequestParam(value = "store", required = false) String store) {
         if (page == null) page = 1;
         if (count == null) count = 30;
 
-        List<Product> products = productDao.findAll();
+        List<Product> products;
+        if (store == null) products = productDao.findAll();
+        else products = productDao.findByStoreName(store);
 
         int baseIndex = (page - 1) * count;
         if (baseIndex >= products.size()) return null;

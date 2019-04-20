@@ -9,4 +9,5 @@ import com.conveniencestore.model.Product;
 
 public interface ProductDao extends JpaRepository<Product, Long> {
 	List<Product> findByNameContaining(String name);
+	List<Product> findByStoreName(String storeName);
 }
