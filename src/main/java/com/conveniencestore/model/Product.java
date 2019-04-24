@@ -40,7 +40,7 @@ public class Product implements Serializable{
 	private String category;
 
 	@Column(name = "event")
-	private String event;
+	private Integer event;
 
 	@Column(name = "imageurl")
 	private String imageUrl;
