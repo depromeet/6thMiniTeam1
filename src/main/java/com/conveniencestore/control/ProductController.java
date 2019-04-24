@@ -10,7 +10,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,13 +25,19 @@ public class ProductController {
     public List<Product> getProducts(
             @RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "count", required = false) Integer count,
+            @RequestParam(value = "event", required = false) Integer event,
             @RequestParam(value = "store", required = false) String store) {
         if (page == null) page = 1;
         if (count == null) count = 30;
 
         List<Product> products;
-        if (store == null) products = productDao.findAll();
-        else products = productDao.findByStoreName(store);
+        if (store == null && event == null) products = productDao.findAll();
+        else if (store != null && event != null)
+            products = productDao.findByStoreNameAndEvent(store, event);
+        else if (store != null)
+            products = productDao.findByStoreName(store);
+        else
+            products = productDao.findByEvent(event);
 
         int baseIndex = (page - 1) * count;
         if (baseIndex >= products.size()) return null;
@@ -101,8 +106,9 @@ public class ProductController {
                 Elements body = divE.select(".card-body");
                 String image_url = body.select(".prod_img_div img").attr("src");
                 String name = body.select("div strong").text();
-                String event = body.select("div span").get(1).text();
-                if (!event.equals("1+1")) event = "2+1";
+                String event_str = body.select("div span").get(1).text();
+                int event = 1;
+                if (!event_str.equals("1+1")) event = 2;
 
                 String divText = body.select("div").text();
                 String[] texts = divText.split(" ");
